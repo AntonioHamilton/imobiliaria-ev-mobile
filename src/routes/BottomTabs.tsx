@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
 import HomeIcon from '../assets/icons/HomeIcon';
-import Home from '../pages/Home';
+import Home from '../pages/Login';
 
 import { RootTabParamList } from '../types/types';
 

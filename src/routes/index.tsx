@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import Home from '../pages/Home';
+import Login from '../pages/Login'
 
 import LinkingConfiguration from './LinkingConfiguration';
 import BottomTabs from './BottomTabs';
@@ -14,10 +14,10 @@ export default function Navigation() {
 
   return (
     <NavigationContainer linking={LinkingConfiguration}>
-      <Stack.Navigator initialRouteName={"Home"}>
+      <Stack.Navigator initialRouteName={"Login"}>
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="Login"
+          component={Login}
           options={{
             headerShown: false,
           }}
