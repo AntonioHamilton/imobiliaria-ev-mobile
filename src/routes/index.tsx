@@ -4,7 +4,7 @@ import React from 'react';
 
 import Login from '../pages/Login'
 
-import LinkingConfiguration from './LinkingConfiguration';
+//import LinkingConfiguration from './LinkingConfiguration';
 import BottomTabs from './BottomTabs';
 import { RootStackParamList } from '../types/types';
 
@@ -12,9 +12,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigation() {
 
+  //<NavigationContainer linking={LinkingConfiguration}>
   return (
-    <NavigationContainer linking={LinkingConfiguration}>
-      <Stack.Navigator initialRouteName={"Login"}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={"Home"}>
         <Stack.Screen
           name="Login"
           component={Login}
