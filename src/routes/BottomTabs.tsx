@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
 import HomeIcon from '../assets/icons/HomeIcon';
-import Home from '../pages/Home';
+import Announcements from '../pages/Announcements';
 
 import { RootTabParamList } from '../types/types';
 
@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 export default function BottomTabs() {
   return (
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Announcements"
         detachInactiveScreens
         screenOptions={{
           unmountOnBlur: true,
@@ -20,7 +20,10 @@ export default function BottomTabs() {
           tabBarHideOnKeyboard: true,
           tabBarActiveTintColor: '#fff',
           tabBarInactiveTintColor: '#000',
-          tabBarBackground: () => <View />,
+          tabBarBackground: () => <View style={{
+            height: "100%",
+            backgroundColor: "#955cfd"
+          }}/>,
           tabBarStyle: {
             position: 'absolute',
             borderTopWidth: 0,
@@ -28,8 +31,8 @@ export default function BottomTabs() {
         }}
       >
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="Announcements"
+          component={Announcements}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (

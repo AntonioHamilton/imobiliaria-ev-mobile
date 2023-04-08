@@ -16,6 +16,7 @@ const TextField = ({onChange, placeholder, autoCorrect, secureTextEntry = false}
     secureTextEntry={secureTextEntry}
   />
 )
+
 const styles = StyleSheet.create({
   input: {
     width: '100%',
@@ -32,6 +33,5 @@ const styles = StyleSheet.create({
     bottom: 0
   },
 })
-
 
 export default TextField;

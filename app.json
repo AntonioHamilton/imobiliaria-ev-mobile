@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "kitinnet-mobile",
-    "slug": "kitinnet-mobile",
+    "name": "ev-mobile",
+    "slug": "ev-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
@@ -23,13 +23,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.kitinnetmobile"
+      "package": "com.chatbot1.ev-mobile"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3d68a529-a416-4cb7-9599-3eec2b64362a"
+      }
     }
   }
 }
