@@ -5,13 +5,14 @@ import HomeIcon from '../assets/icons/HomeIcon';
 import Announcements from '../pages/Announcements';
 
 import { RootTabParamList } from '../types/types';
+import Properties from '../pages/Properties';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function BottomTabs() {
   return (
       <Tab.Navigator
-        initialRouteName="Announcements"
+        initialRouteName="Home"
         detachInactiveScreens
         screenOptions={{
           unmountOnBlur: true,
@@ -31,8 +32,18 @@ export default function BottomTabs() {
         }}
       >
         <Tab.Screen
-          name="Announcements"
+          name="Home"
           component={Announcements}
+          options={{
+            unmountOnBlur: true,
+            tabBarIcon: ({ size, color }) => (
+              <HomeIcon size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Properties"
+          component={Properties}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (

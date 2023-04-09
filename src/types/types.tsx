@@ -13,6 +13,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export type RootStackParamList = {
   Home: NavigatorScreenParams<RootTabParamList> | undefined;
   Announcements: NavigatorScreenParams<RootTabParamList> | undefined;
+  AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | undefined;
+  Properties: NavigatorScreenParams<RootTabParamList> | undefined;
+  PropertyDetail: NavigatorScreenParams<RootTabParamList> | undefined;
+  RegisterProperty: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -20,7 +24,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 
 export type RootTabParamList = {
   Home: undefined;
-  Announcements: undefined;
+  Properties: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

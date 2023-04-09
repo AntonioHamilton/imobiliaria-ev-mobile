@@ -1,13 +1,13 @@
 import {View, TextInput, StyleSheet} from 'react-native'
 import SearchIcon from '../assets/icons/SearchIcon'
 
-const Search = ({setSearch} : {setSearch: Function}) => {
+const Search = ({setSearch, placeholder = "Buscar"} : {setSearch: Function, placeholder?: string}) => {
   return (
     <View style={styles.view}>
       <SearchIcon />
       <TextInput
         style={styles.input}
-        placeholder={"Buscar"}
+        placeholder={placeholder}
         onChangeText={data => setSearch(data)}
       />
     </View>

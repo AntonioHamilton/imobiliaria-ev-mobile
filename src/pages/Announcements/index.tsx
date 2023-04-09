@@ -1,22 +1,22 @@
 import { useEffect, useState, useContext } from "react";
 import { View, ScrollView } from "react-native";
 import { api } from "../../api/api";
-import Card from "../../components/Card";
+import AnnouncementCard from "../../components/AnnouncementCard";
 import EmptyState from "../../components/EmptyState";
 import Loading from "../../components/Loading";
 import Search from "../../components/Search";
 import Title from "../../components/Title";
 import { SearchContext } from "../../context/searchProvider";
 import useDebounce from "../../hooks/useDebounce";
-import { Announcement } from "../../types/apiTypes";
+import { Anuncio } from "../../types/apiTypes";
 import { formatMoney, formatType } from "../../utils/FormatData";
 
 const Home = () => {
-  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [filteredAnnouncements, setFilteredAnnouncements] = useState<Announcement[]>([]);
+  const [announcements, setAnnouncements] = useState<Anuncio[]>([]);
+  const [filteredAnnouncements, setFilteredAnnouncements] = useState<Anuncio[]>([]);
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const [isLoading, setIsLoading] = useState(false);
-  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+  const debouncedSearchTerm = useDebounce(searchTerm, 0);
 
   const getAnnouncements = async () => {
     setIsLoading(true)
@@ -34,8 +34,8 @@ const Home = () => {
 
   const searchInList = () => {
     if (debouncedSearchTerm && announcements) {
-      return announcements.filter((anuncio) => {
-        return anuncio.titulo.toLowerCase().search(debouncedSearchTerm.toLowerCase()) >= 0
+      return announcements.filter((announcement) => {
+        return announcement.titulo.toLowerCase().search(debouncedSearchTerm.toLowerCase()) >= 0
       })
     } 
     return announcements
@@ -56,12 +56,12 @@ const Home = () => {
         <Title>ANÚNCIOS</Title>
         <Search setSearch={setSearchTerm}/>
         {!isLoading && filteredAnnouncements.map((announcement) => (
-          <Card
+          <AnnouncementCard
             key={announcement.id}
             title={announcement.titulo} 
             type={formatType(announcement.tipo)} 
             price={formatMoney(announcement.valor)} 
-            link={`${announcement.id}`}
+            navConfig={{link: "AnnouncementDetail", id: announcement.id}}
           />
         ))}
         {announcements.length === 0 && !isLoading && <EmptyState text={"Não existem anúncios ainda!"}/>}

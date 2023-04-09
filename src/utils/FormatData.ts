@@ -11,7 +11,8 @@ export const formatType = (type: string) => {
   }
 }
 
-export const formatMoney = (price: number) => {
+export const formatMoney = (price: number | undefined) => {
+  if (price === undefined) return "R$ 0,00"
   return formatCurrency({ amount: price, code: "BRL" })[0]
 }
 
@@ -80,6 +81,12 @@ export const locationFormat = (
   country: string | undefined
 ) => {
   return `${city}/${stateShortFormat(state)}, ${country}`;
+};
+
+export const formatDate = (date: any) => {
+  if (date === undefined) return ""
+  let newDate = date.split("T")[0];
+  return newDate.split("-").reverse().join("/");
 };
 
 export const areaFormat = (value: number | undefined): string => {
