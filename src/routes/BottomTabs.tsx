@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import HomeIcon from '../assets/icons/HomeIcon';
 import Announcements from '../pages/Announcements';
+import Cadastro from '../pages/Cadastro';
 
 import { RootTabParamList } from '../types/types';
 import Properties from '../pages/Properties';
@@ -44,6 +45,16 @@ export default function BottomTabs() {
         <Tab.Screen
           name="Properties"
           component={Properties}
+          options={{
+            unmountOnBlur: true,
+            tabBarIcon: ({ size, color }) => (
+              <HomeIcon size={size} color={color} />
+            ),
+          }}
+        />
+         <Tab.Screen
+          name="Cadastro"
+          component={Cadastro}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (
