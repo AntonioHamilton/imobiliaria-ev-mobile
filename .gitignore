@@ -8,7 +8,6 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
-.editorconfig
 .env
 web-build/
 Android

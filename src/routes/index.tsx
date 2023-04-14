@@ -6,7 +6,8 @@ import LinkingConfiguration from './LinkingConfiguration';
 import BottomTabs from './BottomTabs';
 import { RootStackParamList } from '../types/types';
 import AnnouncementDetail from '../pages/AnnouncementDetail';
-import Propertys from '../pages/Properties';
+import PropertyDetail from '../pages/PropertyDetail';
+import RegisterProperty from '../pages/RegisterProperty/RegisterProperty';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,14 +32,14 @@ export default function Navigation() {
         />
         <Stack.Screen
           name="PropertyDetail"
-          component={AnnouncementDetail}
+          component={PropertyDetail}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
           name="RegisterProperty"
-          component={AnnouncementDetail}
+          component={RegisterProperty}
           options={{
             headerShown: false,
           }}

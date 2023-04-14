@@ -4,15 +4,16 @@ import { ReactNode } from 'react'
 type ButtonProps = {
   children: ReactNode;
   onPress?: () => void;
+  transparent?: boolean;
   style?: {[key: string]: string | number}
 }
 
-const Button = ({children, onPress, style}: ButtonProps) => (
+const Button = ({children, onPress, style, transparent}: ButtonProps) => (
   <TouchableOpacity
     onPress={onPress}
     style={[styles.btn, style]}
   >
-    <Text style={styles.btnTxt}>{children}</Text>
+    <Text style={transparent ? styles.btnTxtTransparent : styles.btnTxt}>{children}</Text>
   </TouchableOpacity>
 )
 
@@ -37,6 +38,10 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20
   },
+  btnTxtTransparent: {
+    color: '#9155fd',
+    fontSize: 20
+  }
 })
 
 

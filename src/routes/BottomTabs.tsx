@@ -3,17 +3,18 @@ import { View } from 'react-native';
 
 import HomeIcon from '../assets/icons/HomeIcon';
 import Announcements from '../pages/Announcements';
-import Cadastro from '../pages/Cadastro';
+import Register from '../pages/Register';
 
 import { RootTabParamList } from '../types/types';
 import Properties from '../pages/Properties';
+import Employees from '../pages/Employees/Employees';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function BottomTabs() {
   return (
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Announcements"
         detachInactiveScreens
         screenOptions={{
           unmountOnBlur: true,
@@ -33,7 +34,7 @@ export default function BottomTabs() {
         }}
       >
         <Tab.Screen
-          name="Home"
+          name="Announcements"
           component={Announcements}
           options={{
             unmountOnBlur: true,
@@ -52,9 +53,19 @@ export default function BottomTabs() {
             ),
           }}
         />
-         <Tab.Screen
-          name="Cadastro"
-          component={Cadastro}
+        <Tab.Screen
+          name="Register"
+          component={Register}
+          options={{
+            unmountOnBlur: true,
+            tabBarIcon: ({ size, color }) => (
+              <HomeIcon size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Employees"
+          component={Employees}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (

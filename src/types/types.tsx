@@ -26,7 +26,9 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
   Home: undefined;
   Properties: undefined;
-  Cadastro: undefined;
+  Register: undefined;
+  Announcements: undefined;
+  Employees: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

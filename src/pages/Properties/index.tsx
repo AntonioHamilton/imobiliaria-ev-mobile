@@ -10,6 +10,10 @@ import useDebounce from "../../hooks/useDebounce";
 import { Imovel } from "../../types/apiTypes";
 import { formatType } from "../../utils/FormatData";
 import PropertyCard from "../../components/PropertyCard";
+import Button from "../../components/Button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types/types";
+import { useNavigation } from "@react-navigation/native";
 
 const Properties = () => {
   const [properties, setProperties] = useState<Imovel[]>([]);
@@ -17,6 +21,7 @@ const Properties = () => {
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const [isLoading, setIsLoading] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 0);
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const getProperties = async () => {
     setIsLoading(true)
@@ -55,6 +60,9 @@ const Properties = () => {
       <View style={{ marginVertical: 20, marginHorizontal: 16, alignItems: "center", flex: 1, marginTop: 40 }}>
         <Title>Imóveis</Title>
         <Search placeholder="Buscar por logradouro" setSearch={setSearchTerm}/>
+        <Button onPress={() => nav.navigate('RegisterProperty')}>
+          Cadastrar Imóvel
+        </Button>
         {!isLoading && filteredProperties.map((property) => (
           <PropertyCard
             key={property.id}
