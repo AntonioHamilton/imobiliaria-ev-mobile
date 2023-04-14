@@ -1,13 +1,15 @@
+import React from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
 import HomeIcon from '../assets/icons/HomeIcon';
 import Announcements from '../pages/Announcements';
-import Register from '../pages/Register';
+import Register from '../pages/Cadastro';
 
 import { RootTabParamList } from '../types/types';
 import Properties from '../pages/Properties';
-import Employees from '../pages/Employees/Employees';
+import Login from "../pages/Login";
+import Employees from "../pages/Employees";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -66,6 +68,16 @@ export default function BottomTabs() {
         <Tab.Screen
           name="Employees"
           component={Employees}
+          options={{
+            unmountOnBlur: true,
+            tabBarIcon: ({ size, color }) => (
+              <HomeIcon size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Login"
+          component={Login}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (

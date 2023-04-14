@@ -8,6 +8,7 @@ import { RootStackParamList } from '../types/types';
 import AnnouncementDetail from '../pages/AnnouncementDetail';
 import PropertyDetail from '../pages/PropertyDetail';
 import RegisterProperty from '../pages/RegisterProperty/RegisterProperty';
+import RegisterEmployee from '../pages/RegisterEmployees';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -40,6 +41,13 @@ export default function Navigation() {
         <Stack.Screen
           name="RegisterProperty"
           component={RegisterProperty}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="RegisterEmployee"
+          component={RegisterEmployee}
           options={{
             headerShown: false,
           }}

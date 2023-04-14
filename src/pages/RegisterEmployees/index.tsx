@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
 
-const Employees = () => {
+const RegisterEmployee = () => {
   const [data, setData] = useState<{[key: string]: string | number}>({
 
   })
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Employees
+export default RegisterEmployee

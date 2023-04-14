@@ -8,6 +8,14 @@ export interface Anuncio {
   imovel: Imovel | undefined;
 }
 
+export type Funcionario = {
+  id: number
+  nome: string
+  email: string
+  password: string
+  token: string | null
+}
+
 export interface Imovel {
   id?: number;
   disponivel: boolean;

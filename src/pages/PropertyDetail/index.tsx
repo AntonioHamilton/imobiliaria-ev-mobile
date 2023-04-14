@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import { useRoute } from "@react-navigation/native";
 import { Imovel } from "../../types/apiTypes";

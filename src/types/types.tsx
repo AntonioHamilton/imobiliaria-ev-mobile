@@ -18,6 +18,7 @@ export type RootStackParamList = {
   PropertyDetail: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterProperty: NavigatorScreenParams<RootTabParamList> | undefined;
   Cadastro: NavigatorScreenParams<RootTabParamList> | undefined;
+  RegisterEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -29,6 +30,7 @@ export type RootTabParamList = {
   Register: undefined;
   Announcements: undefined;
   Employees: undefined;
+  Login: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

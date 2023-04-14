@@ -7,8 +7,8 @@ import { TextInput } from "@react-native-material/core";
 export default function Login() {
     const { token, setToken } = useContext(UserContext);
 
-    const [email, setEmail] = useState<String>('');
-    const [password, setPassword] = useState<String>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     async function handlerLogin() {
         if(email && password) {
@@ -25,14 +25,15 @@ export default function Login() {
             <Text style={styles.title}>KIT IN NET</Text>
                 <TextInput
                     style={styles.input}
-                    variant="outlined" label="E-mail"
+                    variant="outlined" 
+                    label="E-mail"
                     value={email}
                     onChangeText={text => setEmail(text)}
                 />
                 <TextInput
                     style={styles.input}
-                    inputProps={{ style: { borderColor: 'red', borderWith: 1 } }}
-                    variant="outlined" label="Senha"
+                    variant="outlined" 
+                    label="Senha"
                     value={password}
                     onChangeText={text => setPassword(text)}
                     secureTextEntry
