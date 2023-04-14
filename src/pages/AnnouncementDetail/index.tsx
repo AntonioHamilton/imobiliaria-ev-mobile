@@ -7,6 +7,7 @@ import { areaFormat, formatMoney, formatDate } from "../../utils/FormatData"
 import { api } from "../../api/api";
 import Loading from "../../components/Loading";
 import { useRoute } from "@react-navigation/native";
+import React from "react";
 
 const AnnouncementDetail = () => {
   const [property, setProperty] = useState<Anuncio>()
