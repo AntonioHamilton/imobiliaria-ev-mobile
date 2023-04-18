@@ -1,20 +1,30 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { api } from '../../api/api';
-import { UserContext } from '../../context/userProvider';
 import { TextInput } from "@react-native-material/core";
+import { EmployeeContext } from '../../context/employeeProvider';
 
-export default function Login() {
-    const { token, setToken } = useContext(UserContext);
+export default function LoginEmployee() {
+    const { token, setToken } = useContext(EmployeeContext);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function handlerLogin() {
         if(email && password) {
-            // const result = await api.get('');
-            // console.log(result)
+            setIsLoading(true)
             setToken('test')
+            // api.get('/login')
+            //     .then(result => {
+            //         console.log(result)
+            //         setIsLoading(false)
+            //         setToken('test')
+            //     })
+            //     .catch(error => {
+            //         setIsLoading(false)
+            //         Alert.alert('Aviso', 'Erro ao tentar realizar o login!')
+            //     })
         } else
             Alert.alert("Aviso", "Favor verfique todos os campos!");
     }
@@ -22,7 +32,7 @@ export default function Login() {
     return(
         <View style={styles.container}>
            <View style={styles.form}>
-            <Text style={styles.title}>KIT IN NET</Text>
+            <Text style={styles.title}>KIT IN NET | FUNCIONÁRIO</Text>
                 <TextInput
                     style={styles.input}
                     variant="outlined" 
@@ -39,7 +49,13 @@ export default function Login() {
                     secureTextEntry
                 />
                 <TouchableOpacity style={styles.button} onPress={handlerLogin}>
-                    <Text style={styles.buttonText}>LOGIN</Text>
+                    {
+                        isLoading
+                        ?
+                        <ActivityIndicator />
+                        :
+                        <Text style={styles.buttonText}>LOGIN</Text>
+                    }
                 </TouchableOpacity>
            </View>
         </View>
@@ -60,7 +76,7 @@ export const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 40,
+        padding: 38,
         borderRadius: 5,
     },
     title: {

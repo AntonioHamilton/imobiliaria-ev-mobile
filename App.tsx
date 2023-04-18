@@ -1,32 +1,23 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SearchProvider from './src/context/searchProvider';
 
 import Navigation from './src/routes';
-import UserProvider, { UserContext } from './src/context/userProvider';
-import React, { useContext } from 'react';
-import Login from './src/pages/Login';
+import UserProvider from './src/context/userProvider';
+import EmployeeProvider from './src/context/employeeProvider';
 
 export default function App() {
     return (
       <SafeAreaProvider>
-        <UserProvider>
-          <Content />
-          <StatusBar style="dark" />
-        </UserProvider>
+        <EmployeeProvider>
+          <UserProvider>
+            <SearchProvider>
+              <Navigation />
+            </SearchProvider>
+            <StatusBar style="dark" />
+          </UserProvider>
+        </EmployeeProvider>
       </SafeAreaProvider>
     );
-}
-
-function Content() {
-
-  return(
-    <>
-      {
-        <SearchProvider>
-          <Navigation />
-        </SearchProvider>
-      }
-    </>
-  )
 }

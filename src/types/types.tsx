@@ -17,8 +17,12 @@ export type RootStackParamList = {
   Properties: NavigatorScreenParams<RootTabParamList> | undefined;
   PropertyDetail: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterProperty: NavigatorScreenParams<RootTabParamList> | undefined;
-  Cadastro: NavigatorScreenParams<RootTabParamList> | undefined;
+  Register: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
+  LoginUser: NavigatorScreenParams<RootTabParamList> | undefined;
+  Profile: NavigatorScreenParams<RootTabParamList> | undefined;
+  LoginEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
+  Employee: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -30,7 +34,10 @@ export type RootTabParamList = {
   Register: undefined;
   Announcements: undefined;
   Employees: undefined;
-  Login: undefined;
+  LoginUser: undefined;
+  Profile: undefined;
+  LoginEmployee: undefined;
+  Employee: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
