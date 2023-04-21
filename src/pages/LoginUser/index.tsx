@@ -5,7 +5,7 @@ import { UserContext } from '../../context/userProvider';
 import { TextInput } from "@react-native-material/core";
 
 export default function LoginUser() {
-    const { token, setToken } = useContext(UserContext);
+    const { setToken } = useContext(UserContext);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -14,17 +14,18 @@ export default function LoginUser() {
     async function handlerLogin() {
         if(email && password) {
             setIsLoading(true)
-            setToken('test')
-            // api.get('/login')
-            //     .then(result => {
-            //         console.log(result)
-            //         setIsLoading(false)
-            //         setToken('test')
-            //     })
-            //     .catch(error => {
-            //         setIsLoading(false)
-            //         Alert.alert('Aviso', 'Erro ao tentar realizar o login!')
-            //     })
+            api.post('/login', {
+                email,
+                password
+            })
+                .then(result => {
+                    setIsLoading(false)
+                    setToken(result.data.token)
+                })
+                .catch(error => {
+                    setIsLoading(false)
+                    Alert.alert('Aviso', 'Não foi possível realizar o login!')
+                })
         } else
             Alert.alert("Aviso", "Favor verfique todos os campos!");
     }
