@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
     },
     title: {
-        fontSize: 22,
+        fontSize: 20,
         color: 'gray',
         marginBottom: 30,
         fontWeight: 'bold'

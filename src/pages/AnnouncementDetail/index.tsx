@@ -1,15 +1,27 @@
 import { View, ScrollView, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Title from "../../components/Title";
 import Card from "../../components/Card";
 import { Anuncio } from "../../types/apiTypes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { areaFormat, formatMoney, formatDate } from "../../utils/FormatData"
 import { api } from "../../api/api";
 import Loading from "../../components/Loading";
 import { useRoute } from "@react-navigation/native";
 import React from "react";
+import Button from "../../components/Button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types/types";
+import { UserContext } from "../../context/userProvider";
 
 const AnnouncementDetail = () => {
+  const { user } = useContext(UserContext)
+  const [isLoggedIn] = useState(!!user?.data);
+  const userExists = user?.data
+  const employeeAccess = (isLoggedIn && userExists && user.isEmployee)
+
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const [property, setProperty] = useState<Anuncio>()
   const [isLoading, setIsLoading] = useState(false);
   const { params } = useRoute<any>();
@@ -28,6 +40,13 @@ const AnnouncementDetail = () => {
     }
 
     setIsLoading(false);    
+  }
+
+
+  const showInterest = (id: number | undefined) => {
+    if(id) {
+      nav.navigate('RegisterInterest', { id })
+    }
   }
 
   useEffect(() => {
@@ -49,6 +68,10 @@ const AnnouncementDetail = () => {
               <Text style={styles.descriptions}>{endereco?.pais}</Text>
               <Text style={styles.descriptions}>{endereco?.estado}, {endereco?.cidade}</Text>
               <Text style={styles.descriptions}>{endereco?.logradouro} - {endereco?.numero}, {endereco?.cep}</Text>
+              {
+                !employeeAccess &&
+                (<Button style={{ marginTop: 20 }} onPress={() => showInterest(property?.id)}>Demonstrar Interesse</Button>)
+              }
             </View>
           </Card>
         </View>

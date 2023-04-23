@@ -2,7 +2,7 @@ import React, {View, Text, StyleSheet} from "react-native"
 import Button from "./Button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/types";
-import { NavigatorScreenParams, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 type CardProps = {
   title: string, 
