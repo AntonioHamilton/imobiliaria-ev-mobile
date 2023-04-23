@@ -19,18 +19,19 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function BottomTabs() {
   const { user } = useContext(UserContext)
-  const [isLoggedIn, setIsLoggedIn] = useState(user?.data);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user?.data);
 
   const userExists = user?.data
 
   const employeeAccess = (isLoggedIn && userExists && user.isEmployee)
 
   const handleUser = async () => {
-    if (user.data) setIsLoggedIn(true)
+    if (Object.keys(user.data).length) setIsLoggedIn(true)
     else setIsLoggedIn(false)
   }
 
   useEffect(() => {
+    console.log({isLoggedIn})
     handleUser()
   }, [user])
 
@@ -75,7 +76,7 @@ export default function BottomTabs() {
             ),
           }}
         />}
-        <Tab.Screen
+        {!isLoggedIn && (<Tab.Screen
           name="Register"
           component={Register}
           options={{
@@ -84,7 +85,7 @@ export default function BottomTabs() {
               <HomeIcon size={size} color={color} />
             ),
           }}
-        />
+        />)}
         {employeeAccess && <Tab.Screen
           name="Employees"
           component={Employees}
