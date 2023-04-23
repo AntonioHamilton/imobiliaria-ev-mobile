@@ -2,10 +2,14 @@ import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { api } from '../../api/api';
 import { TextInput } from "@react-native-material/core";
-import { EmployeeContext } from '../../context/employeeProvider';
+import { UserContext } from '../../context/userProvider';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/types';
 
 export default function LoginEmployee() {
-    const { token, setToken } = useContext(EmployeeContext);
+    const { defineUser } = useContext(UserContext);
+    const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -14,17 +18,16 @@ export default function LoginEmployee() {
     async function handlerLogin() {
         if(email && password) {
             setIsLoading(true)
-            setToken('test')
-            // api.get('/login')
-            //     .then(result => {
-            //         console.log(result)
-            //         setIsLoading(false)
-            //         setToken('test')
-            //     })
-            //     .catch(error => {
-            //         setIsLoading(false)
-            //         Alert.alert('Aviso', 'Erro ao tentar realizar o login!')
-            //     })
+            api.post('/login', {email, password})
+                .then(result => {
+                    setIsLoading(false)
+                    defineUser(result.data, true)
+                    nav.navigate('Announcements')
+                })
+                .catch((err) => {
+                  setIsLoading(false)
+                  Alert.alert('Aviso', 'Erro ao tentar realizar o login!')
+                })
         } else
             Alert.alert("Aviso", "Favor verfique todos os campos!");
     }

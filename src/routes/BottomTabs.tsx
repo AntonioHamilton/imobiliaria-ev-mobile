@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
@@ -12,16 +12,27 @@ import Employees from "../pages/Employees";
 import Profile from "../pages/Profile";
 import { UserContext } from "../context/userProvider";
 import LoginUser from "../pages/LoginUser";
-import { EmployeeContext } from "../context/employeeProvider";
 import LoginEmployee from "../pages/LoginEmployee";
 import Employee from "../pages/Employee";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function BottomTabs() {
+  const { user } = useContext(UserContext)
+  const [isLoggedIn, setIsLoggedIn] = useState(user?.data);
 
-  const { token: tokenUser } = useContext(UserContext)
-  const { token: tokenEmployee } = useContext(EmployeeContext)
+  const userExists = user?.data
+
+  const employeeAccess = (isLoggedIn && userExists && user.isEmployee)
+
+  const handleUser = async () => {
+    if (user.data) setIsLoggedIn(true)
+    else setIsLoggedIn(false)
+  }
+
+  useEffect(() => {
+    handleUser()
+  }, [user])
 
   return (
       <Tab.Navigator
@@ -54,7 +65,7 @@ export default function BottomTabs() {
             ),
           }}
         />
-        <Tab.Screen
+        {employeeAccess && <Tab.Screen
           name="Properties"
           component={Properties}
           options={{
@@ -63,7 +74,7 @@ export default function BottomTabs() {
               <HomeIcon size={size} color={color} />
             ),
           }}
-        />
+        />}
         <Tab.Screen
           name="Register"
           component={Register}
@@ -74,7 +85,7 @@ export default function BottomTabs() {
             ),
           }}
         />
-        <Tab.Screen
+        {employeeAccess && <Tab.Screen
           name="Employees"
           component={Employees}
           options={{
@@ -83,13 +94,13 @@ export default function BottomTabs() {
               <HomeIcon size={size} color={color} />
             ),
           }}
-        />
+        />}
         {
-          !tokenEmployee && (
-            !tokenUser
+          (
+            isLoggedIn && userExists
             ?
-            <Tab.Screen
-              name="LoginUser"
+            !user.isEmployee && <Tab.Screen
+              name="Profile"
               component={LoginUser}
               options={{
                 unmountOnBlur: true,
@@ -100,8 +111,8 @@ export default function BottomTabs() {
             />
             :
             <Tab.Screen
-              name="Profile"
-              component={Profile}
+              name="LoginUser"
+              component={LoginUser}
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
@@ -109,15 +120,14 @@ export default function BottomTabs() {
                 ),
               }}
             />
+            
           )
         }
         {
-          !tokenUser && (
-            !tokenEmployee
-            ?
+          ( isLoggedIn && userExists && user.isEmployee ?
             <Tab.Screen
-              name="LoginEmployee"
-              component={LoginEmployee}
+              name="Employee"
+              component={Employee}
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
@@ -127,8 +137,8 @@ export default function BottomTabs() {
             />
             :
             <Tab.Screen
-              name="Employee"
-              component={Employee}
+              name="LoginEmployee"
+              component={LoginEmployee}
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (

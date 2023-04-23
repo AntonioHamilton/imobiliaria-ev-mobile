@@ -42,7 +42,7 @@ const Employees = () =>  {
           flex: 1, 
           marginTop: 40 
         }}>
-          <Title>Funcionários</Title>
+          <Title>FUNCIONÁRIOS</Title>
           <Button onPress={() => nav.navigate('RegisterEmployee')}>
             Cadastrar Funcionário
           </Button>

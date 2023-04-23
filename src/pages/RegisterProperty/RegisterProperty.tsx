@@ -1,16 +1,66 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
 import { Picker } from '@react-native-picker/picker';
+import { api } from '../../api/api';
+import { Imovel } from '../../types/apiTypes';
+import { UserContext } from '../../context/userProvider';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/types';
 
-const RegisterProperty = () => {
+const RegisterProperty = ({property}: any) => {
   const [avaiability, setAvaiability] = useState('indisponivel');
+  const [loading, setLoading] = useState(false)
   const [type, setType] = useState('casa');
   const [data, setData] = useState<{[key: string]: string | number | boolean}>({
     disponível: avaiability === "disponível" ?? false,
   });
+  const { user } = useContext(UserContext);
+
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const cadastrarImovel = async (imovel: Imovel) => {
+    try {
+      return await api.post("/imoveis", imovel);
+    } catch (e) {
+      console.log(e);
+      throw new Error();
+    }
+  };
+
+  const alterarImovel = async (id: number, imovel: Imovel) => {
+    try {
+      const response = await api.put(`/imoveis/${id}`, imovel);
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      throw new Error();
+    }
+  };
+
+  const onSubmit = async (data: any) => {
+    try {
+      const imovel = {
+        ...data,
+        funcionarioId: user.data.id,
+        disponivel: Boolean(data.disponivel),
+      };
+      setLoading(true);
+      if (property.id) {
+        await alterarImovel(imovel.id, imovel);
+      } else {
+        await cadastrarImovel(imovel);
+      }
+      setLoading(false);
+      nav.navigate('Properties')
+    } catch (err) {
+      setLoading(false);
+      Alert.alert("Não foi possível cadastrar o imóvel");
+    }
+  };
 
   const handleChange = (value: string | number, name: string) => {
     const newData = data;
@@ -101,7 +151,7 @@ const RegisterProperty = () => {
           />
           <Button
             style={{width: "80%", alignSelf: "center"}}
-            //onPress={() => {}} 
+            onPress={() => onSubmit} 
           >
             Cadastrar Imóvel
           </Button>

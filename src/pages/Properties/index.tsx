@@ -58,7 +58,7 @@ const Properties = () => {
   return (
     <ScrollView>
       <View style={{ marginVertical: 20, marginHorizontal: 16, alignItems: "center", flex: 1, marginTop: 40 }}>
-        <Title>Imóveis</Title>
+        <Title>IMÓVEIS</Title>
         <Search placeholder="Buscar por logradouro" setSearch={setSearchTerm}/>
         <Button onPress={() => nav.navigate('RegisterProperty')}>
           Cadastrar Imóvel

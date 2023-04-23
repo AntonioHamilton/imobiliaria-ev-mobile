@@ -1,20 +1,25 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { api } from '../../api/api';
-import { EmployeeContext } from '../../context/employeeProvider';
+import { UserContext } from '../../context/userProvider';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/types';
 
 export default function Employee() {
-    const { setToken } = useContext(EmployeeContext);
+    const { user, defineUser } = useContext(UserContext);
+    const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     async function handlerLogout() {
-        setToken(null)
+      nav.navigate('Announcements')
+      defineUser({}, false)
     }
 
     return(
         <View style={styles.container}>
            <View style={styles.form}>
             <Text style={styles.title}>Gerencial</Text>
-                <Text>Funcionário</Text>
+                <Text>Funcionário: {user.data.nome}</Text>
                 <TouchableOpacity style={styles.button} onPress={handlerLogout}>
                     <Text style={styles.buttonText}>SAIR</Text>
                 </TouchableOpacity>

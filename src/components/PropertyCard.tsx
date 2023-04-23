@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from "react-native"
+import React, {View, Text, StyleSheet} from "react-native"
 import Button from "./Button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/types";
