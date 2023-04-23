@@ -47,8 +47,8 @@ export default function Interested({ route: { params: { id } } }: any) {
                     interested.map((itemInterested): any => (
                         <View key={itemInterested.id} style={styles.card}>
                             <Text style={styles.name}>{itemInterested.nome}</Text>
-                            <Text style={styles.text}>E-mail: {itemInterested.telefone}</Text>
-                            <Text style={styles.text}>Telefone: {itemInterested.email}</Text>
+                            <Text style={styles.text}>Telefone: {itemInterested.telefone}</Text>
+                            <Text style={styles.text}>E-mail: {itemInterested.email}</Text>
                             <Button title="Deletar Interessado" onPress={() => handlerRemoveInterested(itemInterested.id)} />
                         </View>
                     ))
