@@ -24,6 +24,7 @@ export type RootStackParamList = {
   LoginEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
   Employee: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterInterest: NavigatorScreenParams<RootTabParamList> | undefined;
+  Interested: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -40,6 +41,7 @@ export type RootTabParamList = {
   LoginEmployee: undefined;
   Employee: undefined;
   RegisterInterest: undefined;
+  Interested: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

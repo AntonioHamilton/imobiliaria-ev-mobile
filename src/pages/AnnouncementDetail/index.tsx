@@ -49,6 +49,12 @@ const AnnouncementDetail = () => {
     }
   }
 
+  const showListInterest = (id: number | undefined) => {
+    if(id) {
+      nav.navigate('Interested', { id })
+    }
+  }
+
   useEffect(() => {
     getProperty()
   }, [])
@@ -69,8 +75,11 @@ const AnnouncementDetail = () => {
               <Text style={styles.descriptions}>{endereco?.estado}, {endereco?.cidade}</Text>
               <Text style={styles.descriptions}>{endereco?.logradouro} - {endereco?.numero}, {endereco?.cep}</Text>
               {
-                !employeeAccess &&
-                (<Button style={{ marginTop: 20 }} onPress={() => showInterest(property?.id)}>Demonstrar Interesse</Button>)
+                employeeAccess
+                ?
+                <Button style={{ marginTop: 20 }} onPress={() => showListInterest(property?.id)}>Ver Interessados</Button>
+                :
+                <Button style={{ marginTop: 20 }} onPress={() => showInterest(property?.id)}>Demonstrar Interesse</Button>                
               }
             </View>
           </Card>

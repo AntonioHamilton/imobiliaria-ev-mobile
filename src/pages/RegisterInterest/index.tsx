@@ -9,7 +9,7 @@ import { RootStackParamList } from '../../types/types';
 import { api } from '../../api/api';
 import TextField from '../../components/TextField';
 
-export default function RegisterInterest({  route: { params: { id } } }: any) {
+export default function RegisterInterest({ route: { params: { id } } }: any) {
     const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [data, setData] = useState<{[key: string]: string | number}>({})

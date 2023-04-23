@@ -14,6 +14,7 @@ import { UserContext } from "../context/userProvider";
 import LoginUser from "../pages/LoginUser";
 import LoginEmployee from "../pages/LoginEmployee";
 import Employee from "../pages/Employee";
+import Interested from "../pages/Interested";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -126,16 +127,18 @@ export default function BottomTabs() {
         }
         {
           ( isLoggedIn && userExists && user.isEmployee ?
-            <Tab.Screen
-              name="Employee"
-              component={Employee}
-              options={{
-                unmountOnBlur: true,
-                tabBarIcon: ({ size, color }) => (
-                  <HomeIcon size={size} color={color} />
-                ),
-              }}
-            />
+            <>
+              <Tab.Screen
+                name="Employee"
+                component={Employee}
+                options={{
+                  unmountOnBlur: true,
+                  tabBarIcon: ({ size, color }) => (
+                    <HomeIcon size={size} color={color} />
+                  ),
+                }}
+              />
+            </>
             :
             <Tab.Screen
               name="LoginEmployee"

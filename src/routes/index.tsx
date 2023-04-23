@@ -10,6 +10,7 @@ import PropertyDetail from '../pages/PropertyDetail';
 import RegisterProperty from '../pages/RegisterProperty/RegisterProperty';
 import RegisterEmployee from '../pages/RegisterEmployees';
 import RegisterInterest from '../pages/RegisterInterest';
+import Interested from '../pages/Interested';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -56,6 +57,13 @@ export default function Navigation() {
         <Stack.Screen
           name="RegisterInterest"
           component={RegisterInterest}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Interested"
+          component={Interested}
           options={{
             headerShown: false,
           }}
