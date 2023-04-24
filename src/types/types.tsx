@@ -12,18 +12,20 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Home: NavigatorScreenParams<RootTabParamList> | undefined;
+  EmployeeDetail: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined };
   Announcements: NavigatorScreenParams<RootTabParamList> | undefined;
   AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | undefined;
   Properties: NavigatorScreenParams<RootTabParamList> | undefined;
   PropertyDetail: NavigatorScreenParams<RootTabParamList> | undefined;
-  RegisterProperty: NavigatorScreenParams<RootTabParamList> | undefined;
+  RegisterProperty: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined };
   Register: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
   LoginUser: NavigatorScreenParams<RootTabParamList> | undefined;
   Profile: NavigatorScreenParams<RootTabParamList> | undefined;
   LoginEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
   Employee: NavigatorScreenParams<RootTabParamList> | undefined;
-  RegisterInterest: NavigatorScreenParams<RootTabParamList> | undefined;
+  Employees: undefined;
+  RegisterInterest: NavigatorScreenParams<RootTabParamList> | { id: number } | undefined;
   Interested: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 

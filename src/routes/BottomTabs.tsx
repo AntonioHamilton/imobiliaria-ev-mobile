@@ -32,7 +32,6 @@ export default function BottomTabs() {
   }
 
   useEffect(() => {
-    console.log({isLoggedIn})
     handleUser()
   }, [user])
 

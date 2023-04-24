@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
-import { useRoute } from "@react-navigation/native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native"
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Imovel } from "../../types/apiTypes";
 import { api } from "../../api/api";
 import Loading from "../../components/Loading";
 import Title from "../../components/Title";
 import Card from "../../components/Card";
 import Button from "../../components/Button";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../types/types";
 
 const PropertyDetail = () => {
   const [property, setProperty] = useState<Imovel>()
   const [isLoading, setIsLoading] = useState(false);
   const { params } = useRoute<any>();
   const endereco = property?.endereco
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const getProperty = async () => {
     setIsLoading(true)
@@ -26,6 +29,31 @@ const PropertyDetail = () => {
 
     setIsLoading(false);    
   }
+  
+  const handleEdit = () => {
+    nav.navigate('RegisterProperty', { id: property?.id})
+  }
+
+  const handleDelete = () => {
+    Alert.alert('Aviso', 'Realmente deseja deletar este imóvel?', [
+      {
+          text: 'Não',
+          onPress: () => {
+            console.log('Cancel')
+          }
+      },
+      {
+          text: 'Sim',
+          onPress: () => {
+            api.delete(`/imoveis/${params.id}`)
+                  .then(() => {
+                      Alert.alert('Aviso', 'Imóvel deletado!')
+                      nav.navigate('Properties')
+                  }).catch(() => Alert.alert('Aviso', 'Erro ao deletar imóvel!'))
+          }
+      }
+    ])
+  }
 
   useEffect(() => {
     getProperty()
@@ -36,7 +64,7 @@ const PropertyDetail = () => {
       {!isLoading && 
         <View style={styles.container}>
           <Title>Imóvel na {endereco?.logradouro}</Title>
-          <Text style={styles.descriptionsContainer}>{property?.tipo.nome} | ${property?.area} m²</Text>
+          <Text style={styles.descriptionsContainer}>{property?.tipo.nome} | {property?.area} m²</Text>
           <Text style={styles.descriptionsContainer}>IPTU: {property?.iptu} R$</Text>
           <Text style={styles.descriptionsContainer}>
             {property?.disponivel ? 
@@ -55,7 +83,7 @@ const PropertyDetail = () => {
               <Text style={styles.descriptions}>{endereco?.logradouro} - {endereco?.numero}, {endereco?.cep}</Text>
             </View>
           </Card>
-          <Button transparent style={{...styles.buttonTransparent, marginTop: 40}}>
+          <Button onPress={handleEdit} transparent style={{...styles.buttonTransparent, marginTop: 40}}>
             Editar Imóvel
           </Button>
           <Button transparent style={styles.buttonTransparent}>
@@ -67,7 +95,7 @@ const PropertyDetail = () => {
           <Button transparent style={styles.buttonTransparent}>
             Visualizar Contratos
           </Button>
-          <Button style={styles.buttonDelete}>
+          <Button style={styles.buttonDelete} onPress={handleDelete}>
             Excluir Imóvel
           </Button>
         </View>

@@ -9,6 +9,7 @@ import Card from '../../components/Card';
 import { Funcionario } from '../../types/apiTypes';
 import { api } from '../../api/api';
 import Loading from '../../components/Loading';
+import EmployeeCard from '../../components/EmployeeCard';
 
 const Employees = () =>  {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -47,29 +48,17 @@ const Employees = () =>  {
             Cadastrar Funcionário
           </Button>
           {employees.map((employee: Funcionario) => (
-            <Card key={employee.id}>
-              <Text style={styles.title}>{employee?.nome}</Text>
-              <Text style={styles.email}>{employee?.email}</Text>
-              <Button>Detalhes</Button>
-            </Card>
+            <EmployeeCard
+              key={employee.id}
+              name={employee?.nome}
+              email={employee?.email}
+              onPress={() => nav.navigate("EmployeeDetail", {id: employee.id})}
+            />
           ))}
-        
         </View>
       }
       {isLoading && <Loading/>}
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  title: {
-    color: "black",
-    fontSize: 20
-  },
-  email: {
-    color: "black",
-    fontSize: 16
-  }
-})
-
 export default Employees

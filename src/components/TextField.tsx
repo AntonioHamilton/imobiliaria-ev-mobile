@@ -1,4 +1,4 @@
-import {TextInput, StyleSheet, KeyboardTypeOptions, View, Text} from 'react-native'
+import React, {TextInput, StyleSheet, KeyboardTypeOptions, View, Text} from 'react-native'
 
 type TextField = {
   onChange: (data: string) => void;
@@ -7,6 +7,7 @@ type TextField = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions
   label?: string
+  defaultValue?: string 
 }
 
 const TextField = ({
@@ -16,6 +17,7 @@ const TextField = ({
   keyboardType = 'default',
   secureTextEntry = false,
   label,
+  defaultValue
 }: TextField
 ) => (
   <View style={styles.container}>
@@ -27,6 +29,7 @@ const TextField = ({
       onChangeText={data => onChange(data)}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
+      defaultValue={defaultValue}
     />
   </View>
 )

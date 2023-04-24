@@ -93,3 +93,16 @@ export const areaFormat = (value: number | undefined): string => {
   if (value) return `${value}m²`;
   return "indefinido";
 };
+
+export const formatPropertyType = (value: string) => {
+  switch(value) {
+    case "casa":
+      return 1
+    case "terreno":
+      return 2
+    case "apartamento":
+      return 3
+    default:
+      return 1
+  }
+}

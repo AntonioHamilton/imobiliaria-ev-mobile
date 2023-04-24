@@ -57,10 +57,10 @@ const Properties = () => {
 
   return (
     <ScrollView>
-      <View style={{ marginVertical: 20, marginHorizontal: 16, alignItems: "center", flex: 1, marginTop: 40 }}>
+      <View style={{ marginVertical: 20, marginHorizontal: 16, alignItems: "center", flex: 1, marginTop: 40, paddingBottom: 50 }}>
         <Title>IMÓVEIS</Title>
         <Search placeholder="Buscar por logradouro" setSearch={setSearchTerm}/>
-        <Button onPress={() => nav.navigate('RegisterProperty')}>
+        <Button onPress={() => nav.navigate('RegisterProperty', {id: undefined})}>
           Cadastrar Imóvel
         </Button>
         {!isLoading && filteredProperties.map((property) => (
