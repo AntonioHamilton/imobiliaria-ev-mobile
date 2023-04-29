@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text, StyleSheet, ScrollView} from "react-native"
 import Title from '../../components/Title';
 import Button from '../../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/types';
 import Card from '../../components/Card';
@@ -16,7 +16,7 @@ const Employees = () =>  {
   const [employees, setEmployees] = useState<Funcionario[]>([])
   const [isLoading, setIsLoading] = useState(false);
 
-  const getEmployee = async () => {
+  const getEmployees = async () => {
     setIsLoading(true)
 
     try {
@@ -29,9 +29,9 @@ const Employees = () =>  {
     setIsLoading(false);    
   }
 
-  useEffect(() => {
-    getEmployee()
-  }, [])
+  useFocusEffect(useCallback(() => {
+    getEmployees()
+  },[]))
 
   return (
     <ScrollView>
@@ -52,7 +52,7 @@ const Employees = () =>  {
               key={employee.id}
               name={employee?.nome}
               email={employee?.email}
-              onPress={() => nav.navigate("EmployeeDetail", {id: employee.id})}
+              onPress={() => nav.navigate("EmployeeDetail", {id: employee.id, isOnlyOne: employees.length === 1})}
             />
           ))}
         </View>

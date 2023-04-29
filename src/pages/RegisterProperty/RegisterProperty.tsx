@@ -17,8 +17,8 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
   const [data, setData] = useState<{[key: string]: string | number | boolean}>({});
   const { user } = useContext(UserContext);
 
-  const [type, setType] = useState<any>(null);
-  const [avaiability, setAvaiability] = useState<any>(null);
+  const [type, setType] = useState<any>(1);
+  const [avaiability, setAvaiability] = useState<any>(0);
 
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -47,7 +47,9 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
   }
 
   useEffect(() => {
-    getProperty()
+    if (id) {
+      getProperty()
+    }
   }, [])
 
   const cadastrarImovel = async (imovel: any) => {
@@ -60,7 +62,6 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
 
   const alterarImovel = async (id: number, imovel: any) => {
     try {
-      console.log({imovel, id})
       const response = await api.put(`/imoveis/${id}`, imovel);
       return response.data;
     } catch (e) {
@@ -69,11 +70,11 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
   };
 
   const onSubmit = async () => {
-    console.log(data.area)
+    
     try {
       const imovel = {
         funcionarioId: user.data.id,
-        enderecoId: defaultProperty.enderecoId,
+        enderecoId: defaultProperty?.enderecoId ?? null,
         disponivel: Boolean(avaiability),
         area: Number(data.area),
         iptu: data.iptu,
@@ -85,9 +86,10 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
           estado: data.estado,
           cep: data.cep,
           numero: data.numero,
-          complemento: data.complemento
+          complemento: data.complemento ?? null
         },
       };
+
       setLoading(true);
       if (!!id) {
         await alterarImovel(id, imovel);
@@ -135,7 +137,7 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
             <Picker.Item label="Apartamento" value="3" />
           </Picker>
           <TextField
-            defaultValue={String(defaultProperty?.area)}
+            defaultValue={String(defaultProperty?.area ?? "")}
             label='Área (m²) *'
             onChange={(value) => handleChange(value, "area")}
             autoCorrect={false}
@@ -193,7 +195,7 @@ const RegisterProperty = ({ route: { params: { id } } }: any) => {
           />
           <TextField
             defaultValue={defaultProperty?.endereco.pais}
-            label='País'
+            label='País *'
             onChange={(value) => handleChange(value, "pais")}
             autoCorrect={false}
             placeholder='País'

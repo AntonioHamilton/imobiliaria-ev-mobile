@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { View, ScrollView } from "react-native";
 import { api } from "../../api/api";
 import EmptyState from "../../components/EmptyState";
@@ -13,7 +13,7 @@ import PropertyCard from "../../components/PropertyCard";
 import Button from "../../components/Button";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/types";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const Properties = () => {
   const [properties, setProperties] = useState<Imovel[]>([]);
@@ -46,9 +46,12 @@ const Properties = () => {
     return properties
   }
 
+  useFocusEffect(useCallback(() => {
+    getProperties()
+  }, []))
+
   useEffect(() => {
     setSearchTerm('')
-    getProperties()
   }, [])
 
   useEffect(() => {

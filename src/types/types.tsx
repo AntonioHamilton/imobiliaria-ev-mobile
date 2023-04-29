@@ -12,7 +12,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Home: NavigatorScreenParams<RootTabParamList> | undefined;
-  EmployeeDetail: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined };
+  EmployeeDetail: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined, isOnlyOne: boolean };
   Announcements: NavigatorScreenParams<RootTabParamList> | undefined;
   AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | undefined;
   Properties: NavigatorScreenParams<RootTabParamList> | undefined;
