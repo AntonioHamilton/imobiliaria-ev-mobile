@@ -40,3 +40,13 @@ export interface Tipo {
   id: number;
   nome: string;
 }
+
+export type Contrato = {
+  id: number
+  valor: number
+  vencimento: Date
+  tipo: string
+  dataAssinatura: Date
+  imovelId: number
+  clienteId: number
+}

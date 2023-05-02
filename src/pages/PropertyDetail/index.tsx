@@ -86,13 +86,13 @@ const PropertyDetail = () => {
           <Button onPress={handleEdit} transparent style={{...styles.buttonTransparent, marginTop: 40}}>
             Editar Imóvel
           </Button>
-          <Button transparent style={styles.buttonTransparent}>
+          <Button  transparent style={styles.buttonTransparent}>
             Criar Anúncio
           </Button>
-          <Button transparent style={styles.buttonTransparent}>
+          <Button onPress={() => nav.navigate('CreateContract', { imovelId: params.id })} transparent style={styles.buttonTransparent}>
             Emitir Contrato
           </Button>
-          <Button transparent style={styles.buttonTransparent}>
+          <Button onPress={() => nav.navigate('Contracts')} transparent style={styles.buttonTransparent}>
             Visualizar Contratos
           </Button>
           <Button style={styles.buttonDelete} onPress={handleDelete}>

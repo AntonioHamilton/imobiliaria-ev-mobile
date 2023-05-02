@@ -16,6 +16,27 @@ export const formatMoney = (price: number | undefined) => {
   return formatCurrency({ amount: price, code: "BRL" })[0]
 }
 
+export const formatFullDate = (formattedDate: Date) => {
+  const date = new Date(formattedDate)
+  if (date) return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+  return 'Não definido'
+}
+
+export const formatStringToDate = (date: string) => {
+  const dateRegex = /^([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]([1-9]|0[1-9]|1[012])[- /.](19|20)\d\d$/
+
+  if (dateRegex.test(date)) {
+    const dateFormatted = date.split('/')
+
+    return {
+      date: new Date(dateFormatted[2] as any, String(Number(dateFormatted[1]) - 1) as any, dateFormatted[0] as any), 
+      error: false
+    }
+  }
+
+  return {date: new Date(), error: true};
+}
+
 export const stateShortFormat = (state: string | undefined) => {
   switch (state) {
     case "Acre":

@@ -12,6 +12,10 @@ import RegisterEmployee from '../pages/RegisterEmployees';
 import RegisterInterest from '../pages/RegisterInterest';
 import Interested from '../pages/Interested';
 import EmployeeDetail from '../pages/EmployeeDetail';
+import CreateContract from '../pages/CreateContract';
+import Contracts from '../pages/Contracts';
+import ContractDetail from '../pages/ContractDetail';
+import ChangeContract from '../pages/ChangeContract';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +41,34 @@ export default function Navigation() {
         <Stack.Screen
           name="PropertyDetail"
           component={PropertyDetail}
+          options={{
+            headerShown: false,
+          }}
+        />
+         <Stack.Screen
+          name="Contracts"
+          component={Contracts}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CreateContract"
+          component={CreateContract}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ChangeContract"
+          component={ChangeContract}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ContractDetail"
+          component={ContractDetail}
           options={{
             headerShown: false,
           }}

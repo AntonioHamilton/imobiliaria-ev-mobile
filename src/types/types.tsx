@@ -16,7 +16,7 @@ export type RootStackParamList = {
   Announcements: NavigatorScreenParams<RootTabParamList> | undefined;
   AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | undefined;
   Properties: NavigatorScreenParams<RootTabParamList> | undefined;
-  PropertyDetail: NavigatorScreenParams<RootTabParamList> | undefined;
+  PropertyDetail: NavigatorScreenParams<RootTabParamList> | { id: number | undefined };
   RegisterProperty: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined };
   Register: NavigatorScreenParams<RootTabParamList> | undefined;
   RegisterEmployee: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -26,6 +26,10 @@ export type RootStackParamList = {
   Employee: NavigatorScreenParams<RootTabParamList> | undefined;
   Employees: undefined;
   RegisterInterest: NavigatorScreenParams<RootTabParamList> | { id: number } | undefined;
+  Contracts: NavigatorScreenParams<RootTabParamList> | undefined;
+  CreateContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
+  ChangeContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
+  ContractDetail: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
   Interested: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
