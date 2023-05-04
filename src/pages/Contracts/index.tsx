@@ -31,6 +31,7 @@ const Contracts = () => {
         {!isLoading && 
           contracts.map((contract: Contrato) => 
           <ContractCard 
+            key={contract.id}
             title={`${contract.id}`}
             date={formatFullDate(contract.vencimento)}
             price={formatMoney(contract.valor)}
