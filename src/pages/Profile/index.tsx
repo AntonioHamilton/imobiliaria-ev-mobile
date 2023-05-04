@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { api } from '../../api/api';
 import { UserContext } from '../../context/userProvider';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/types';
+import Button from '../../components/Button';
+import Card from '../../components/Card';
+import { Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
+const newHeight = height - 120
 
 export default function Profile() {
   const { user, defineUser } = useContext(UserContext);
@@ -15,53 +21,93 @@ export default function Profile() {
     defineUser({}, false)
   }
 
-    return(
-        <View style={styles.container}>
-           <View style={styles.form}>
+  const handleDelete = () => {
+    Alert.alert('Aviso', 'Realmente deseja deletar este usuário?', [
+      {
+          text: 'Não',
+          onPress: () => {
+            console.log('Cancel')
+          }
+      },
+      {
+          text: 'Sim',
+          onPress: () => {
+            api.delete(`/cliente/${user.data.id}`)
+                  .then(() => {
+                      Alert.alert('Aviso', 'Usuário deletado!')
+                      nav.navigate('Announcements')
+                      defineUser({}, false)
+                  }).catch(() => Alert.alert('Aviso', 'Erro ao deletar usuário!'))
+          }
+      }
+    ])
+  }
+
+  return(
+    <ScrollView>
+      <View style={styles.wrapper}>
+        <Card>
+          <View style={styles.container}>
             <Text style={styles.title}>PERFIL</Text>
-                <Text>{user.data.nome}</Text>
-                <TouchableOpacity style={styles.button} onPress={handlerLogout}>
-                    <Text style={styles.buttonText}>SAIR</Text>
-                </TouchableOpacity>
-           </View>
-        </View>
-    );
+            <Text style={styles.name}>{user.data.nome}</Text>
+          </View>
+        </Card>
+        {user.isEmployee && <View style={styles.buttonWrapper}>
+          <Button onPress={() => nav.navigate('Contracts')} transparent style={{...styles.buttonTransparent, marginBottom: 0, marginTop: 0}}>
+              Visualizar Favoritos
+          </Button>
+          <Button onPress={() => nav.navigate('Contracts')} transparent style={{...styles.buttonTransparent, marginBottom: 24, marginTop: 0}}>
+              Visualizar imóveis de seu interesse
+          </Button>
+          <Button onPress={handlerLogout}>
+            Sair
+          </Button>
+          <Button style={styles.buttonDelete} onPress={handleDelete}>
+            Excluir Perfil
+          </Button>
+        </View>}
+      </View>
+    </ScrollView>
+  );
 }
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f1f1f1'
-    },
-    form: {
-        width: '85%',
-        backgroundColor: '#fff',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 40,
-        borderRadius: 5,
-    },
-    title: {
-        fontSize: 22,
-        color: 'gray',
-        marginBottom: 30,
-        fontWeight: 'bold'
-    },
-    button: {
-        backgroundColor: 'rgb(145, 85, 253)',
-        width: '100%',
-        padding: 15,
-        borderRadius: 10,
-        marginTop: 20,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: '#fff'
-    }
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  wrapper: {
+    height: newHeight,
+    marginVertical: 20, 
+    marginHorizontal: 16, 
+    alignItems: "center", 
+    flex: 1,
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
+    marginTop: 40,
+  },
+  buttonWrapper: {
+    alignItems: "center",
+    display: 'flex',
+    width: "100%"
+  },
+  title: {
+    fontSize: 22,
+    color: 'gray',
+    marginBottom: 30,
+    fontWeight: 'bold'
+  },
+  name: {
+    fontSize: 20,
+    textAlign: "center",
+  },
+  buttonTransparent: {
+    backgroundColor: "transparent",
+    shadowColor: "transparent",
+  },
+  buttonDelete: {
+    marginTop: 8,
+    backgroundColor: "#FF4C51"
+  }
 });

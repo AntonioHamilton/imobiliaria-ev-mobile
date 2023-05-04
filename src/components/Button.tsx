@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 type ButtonProps = {
   children: ReactNode;

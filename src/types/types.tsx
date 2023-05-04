@@ -31,7 +31,7 @@ export type RootStackParamList = {
   ChangeContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
   ContractDetail: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
   Interested: NavigatorScreenParams<RootTabParamList> | undefined;
-  CreateAnnouncement: NavigatorScreenParams<RootTabParamList> | undefined;
+  CreateAnnouncement: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

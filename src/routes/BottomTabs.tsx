@@ -98,11 +98,11 @@ export default function BottomTabs() {
         />}
         {
           (
-            isLoggedIn && userExists
+            (isLoggedIn && userExists)
             ?
             !user.isEmployee && <Tab.Screen
               name="Profile"
-              component={LoginUser}
+              component={Profile}
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
@@ -139,7 +139,7 @@ export default function BottomTabs() {
               />
             </>
             :
-            <Tab.Screen
+            (!isLoggedIn || user.isEmployee) && <Tab.Screen
               name="LoginEmployee"
               component={LoginEmployee}
               options={{

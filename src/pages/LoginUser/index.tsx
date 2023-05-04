@@ -5,22 +5,22 @@ import { UserContext } from '../../context/userProvider';
 import { TextInput } from "@react-native-material/core";
 
 export default function LoginUser() {
-    const { setToken } = useContext(UserContext);
+    const { defineUser } = useContext(UserContext);
 
-    const [email, setEmail] = useState<string>('');
+    const [cpf, setCPF] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function handlerLogin() {
-        if(email && password) {
+        if(cpf && password) {
             setIsLoading(true)
-            api.post('/login', {
-                email,
+            api.post('/login?cliente=true', {
+                cpf,
                 password
             })
                 .then(result => {
                     setIsLoading(false)
-                    setToken(result.data.token)
+                    defineUser(result.data, false)
                 })
                 .catch(error => {
                     setIsLoading(false)
@@ -37,9 +37,9 @@ export default function LoginUser() {
                 <TextInput
                     style={styles.input}
                     variant="outlined" 
-                    label="E-mail"
-                    value={email}
-                    onChangeText={text => setEmail(text)}
+                    label="CPF"
+                    value={cpf}
+                    onChangeText={text => setCPF(text)}
                 />
                 <TextInput
                     style={styles.input}

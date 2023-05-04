@@ -1,19 +1,20 @@
 import {View, Text, StyleSheet} from "react-native"
 import Button from "./Button";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 type CardProps = {
   children: ReactNode;
+  style?: {[key: string]: string | number}
 }
 
-const Card = ({children}: CardProps) => {
+const Card = ({children, style}: CardProps) => {
 
   return (
-    <View style={[styles.container, styles.shadowProp]}>
-    <View style={styles.textContainer}>
-      {children}
+    <View style={[styles.container, styles.shadowProp, style]}>
+      <View style={styles.textContainer}>
+        {children}
+      </View>
     </View>
-  </View>
   )
 }
 
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     paddingVertical: 16,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   shadowProp: {
     shadowColor: '#171717',
