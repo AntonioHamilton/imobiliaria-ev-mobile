@@ -6,6 +6,8 @@ import { api } from "../../api/api";
 import Loading from "../../components/Loading";
 import Title from "../../components/Title";
 import Button from "../../components/Button";
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/types";
 import { formatFullDate, formatMoney, formatType } from "../../utils/FormatData";
@@ -46,7 +48,7 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
             api.delete(`/contrato/${contratoId}`)
                   .then(() => {
                       Alert.alert('Aviso', 'Contrato revogado!')
-                      nav.navigate('Contracts')
+                      nav.navigate('Contracts', imovelId)
                   }).catch(() => Alert.alert('Aviso', 'Erro ao revogar contrato!'))
           }
       }
@@ -57,6 +59,15 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
     const today = new Date()
     if (today <= new Date(expirationDate)) return true;
     return new Date(signDate) >= new Date(expirationDate)
+  }
+
+  async function handleGeneratePDFConctract() {
+    const html = `
+      <h1>Contrato</h1>
+    `
+    const { uri } = await Print.printToFileAsync({ html });
+    console.log('File has been saved to:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   }
 
   useFocusEffect(useCallback(() => {
@@ -96,8 +107,8 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
           >
             Alterar Contato
           </Button>
-          <Button style={{marginBottom: 16}}>
-            Visualizar Contrato Completo
+          <Button style={{marginBottom: 16}} onPress={async () => await handleGeneratePDFConctract()}>
+            Visualizar Contrato Completo (PDF)
           </Button>
           <Button style={styles.buttonDelete} onPress={handleDelete}>
             Revogar Contrato

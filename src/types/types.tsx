@@ -26,7 +26,7 @@ export type RootStackParamList = {
   Employee: NavigatorScreenParams<RootTabParamList> | undefined;
   Employees: undefined;
   RegisterInterest: NavigatorScreenParams<RootTabParamList> | { id: number } | undefined;
-  Contracts: NavigatorScreenParams<RootTabParamList> | undefined;
+  Contracts: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
   CreateContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
   ChangeContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
   ContractDetail: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
