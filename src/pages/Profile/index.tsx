@@ -50,14 +50,14 @@ export default function Profile() {
           <View style={styles.container}>
             <Text style={styles.title}>PERFIL</Text>
             <Text style={styles.name}>{user.data.nome}</Text>
+            <Text style={styles.name}>email: {user.data.email}</Text>
+            <Text style={styles.name}>telefone: {user.data.telefone}</Text>
+            <Text style={styles.name}>dataNascimento: {user.data.dataNascimento}</Text>
           </View>
         </Card>
-        {user.isEmployee && <View style={styles.buttonWrapper}>
-          <Button onPress={() => nav.navigate('Contracts')} transparent style={{...styles.buttonTransparent, marginBottom: 0, marginTop: 0}}>
+        {!user.isEmployee && <View style={styles.buttonWrapper}>
+          <Button onPress={() => nav.navigate('Favorites')} transparent style={{...styles.buttonTransparent, marginBottom: 0, marginTop: 0}}>
               Visualizar Favoritos
-          </Button>
-          <Button onPress={() => nav.navigate('Contracts')} transparent style={{...styles.buttonTransparent, marginBottom: 24, marginTop: 0}}>
-              Visualizar imóveis de seu interesse
           </Button>
           <Button onPress={handlerLogout}>
             Sair

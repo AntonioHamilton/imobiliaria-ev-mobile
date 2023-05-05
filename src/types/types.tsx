@@ -14,7 +14,7 @@ export type RootStackParamList = {
   Home: NavigatorScreenParams<RootTabParamList> | undefined;
   EmployeeDetail: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined, isOnlyOne: boolean };
   Announcements: NavigatorScreenParams<RootTabParamList> | undefined;
-  AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | undefined;
+  AnnouncementDetail: NavigatorScreenParams<RootTabParamList> | { id: number | undefined };
   Properties: NavigatorScreenParams<RootTabParamList> | undefined;
   PropertyDetail: NavigatorScreenParams<RootTabParamList> | { id: number | undefined };
   RegisterProperty: NavigatorScreenParams<RootTabParamList> |  { id: number | undefined };
@@ -30,7 +30,8 @@ export type RootStackParamList = {
   CreateContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
   ChangeContract: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
   ContractDetail: NavigatorScreenParams<RootTabParamList> | { imovelId: number, contratoId: number } | undefined;
-  Interested: NavigatorScreenParams<RootTabParamList> | undefined;
+  Favorites: NavigatorScreenParams<RootTabParamList> | undefined;
+  Interested: NavigatorScreenParams<RootTabParamList> | { id: number } | undefined;
   CreateAnnouncement: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
 };
 
