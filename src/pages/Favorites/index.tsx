@@ -40,6 +40,7 @@ const Favorites = () => {
         <Title>FAVORITOS</Title>
         {!isLoading && favorites.map((favorite: any) => (
           <FavoriteCard
+            key={favorite.id}
             name={favorite.anuncio.titulo}
             price={formatMoney(favorite.anuncio.valor)}
             onPress={() => nav.navigate('AnnouncementDetail', { id: favorite.anuncioId })}

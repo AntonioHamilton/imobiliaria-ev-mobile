@@ -92,7 +92,7 @@ const AnnouncementDetail = () => {
 
   useFocusEffect(useCallback(() => {
     getProperty()
-    getFavorites()
+    if (user.data.id) getFavorites()
   }, []))
 
   return (
@@ -112,10 +112,10 @@ const AnnouncementDetail = () => {
               <Text style={styles.descriptions}>{endereco?.logradouro} - {endereco?.numero}, {endereco?.cep}</Text>
             </View>
           </Card>
-          {isFavorite && !employeeAccess && <Button style={{ marginTop: 20 }} onPress={favoriteRequest}>
+          {user.data.id && isFavorite && !employeeAccess && <Button style={{ marginTop: 20 }} onPress={favoriteRequest}>
             Remover dos Favoritos <Image style={styles.image} source={Heart} />
           </Button>}
-          {!isFavorite && !employeeAccess && <Button style={{ marginTop: 20 }} onPress={favoriteRequest}>
+          {user.data.id && !isFavorite && !employeeAccess && <Button style={{ marginTop: 20 }} onPress={favoriteRequest}>
             Adicionar aos Favoritos <Image style={styles.image} source={HeartEmpty} />
           </Button>}
           {

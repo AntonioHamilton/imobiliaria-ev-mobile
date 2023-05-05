@@ -14,7 +14,7 @@ import { Contrato } from '../../types/apiTypes'
 import { formatFullDate, formatStringToDate } from '../../utils/FormatData'
 
 const ChangeContract = ({ route: { params: { imovelId, contratoId } } }: any) => {
-  const [contractType, setContractType] = useState("v")
+  const [contractType, setContractType] = useState("V")
   const [contract, setContract] = useState<Contrato>()
   const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -96,8 +96,8 @@ const ChangeContract = ({ route: { params: { imovelId, contratoId } } }: any) =>
           selectedValue={contractType}
           onValueChange={(itemValue) => setContractType(itemValue)}
         >
-          <Picker.Item label="Aluguel" value={"a"} />
-          <Picker.Item label="Venda" value={"v"} />
+          <Picker.Item label="Aluguel" value={"A"} />
+          <Picker.Item label="Venda" value={"V"} />
         </Picker>
         <TextField
           defaultValue={formatFullDate(contract?.dataAssinatura as Date)}

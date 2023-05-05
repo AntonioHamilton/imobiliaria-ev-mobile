@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { View, ScrollView } from "react-native";
+import React, { useEffect, useState, useContext, useCallback } from "react";
+import { View, ScrollView, Text } from "react-native";
 import { api } from "../../api/api";
 import AnnouncementCard from "../../components/AnnouncementCard";
 import EmptyState from "../../components/EmptyState";
@@ -10,6 +10,7 @@ import { SearchContext } from "../../context/searchProvider";
 import useDebounce from "../../hooks/useDebounce";
 import { Anuncio } from "../../types/apiTypes";
 import { formatMoney, formatType } from "../../utils/FormatData";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Home = () => {
   const [announcements, setAnnouncements] = useState<Anuncio[]>([]);
@@ -41,14 +42,14 @@ const Home = () => {
     return announcements
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setSearchTerm('')
     getAnnouncements()
-  }, [])
+  }, []))
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setFilteredAnnouncements(searchInList())
-  }, [debouncedSearchTerm])
+  }, [debouncedSearchTerm]))
 
   return (
     <ScrollView>

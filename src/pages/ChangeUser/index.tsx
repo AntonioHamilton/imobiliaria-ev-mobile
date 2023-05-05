@@ -8,7 +8,7 @@ import { RootStackParamList } from '../../types/types';
 import { formatStringToDate } from '../../utils/FormatData';
 import Title from '../../components/Title';
 import TextField from '../../components/TextField';
-import { Button } from '@react-native-material/core';
+import { Button, Switch } from '@react-native-material/core';
 import Loading from '../../components/Loading';
 
 export default function ChangeUser() {
@@ -16,6 +16,7 @@ export default function ChangeUser() {
     const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     const [loading, setLoading] = useState(false)
+    const [changePassword, setChangePassword] = useState(false)
     const [cliente, setCliente] = useState<{[key: string]: string | number | boolean | Date}>({
         nome: "",
         cpf: "",
@@ -125,13 +126,31 @@ export default function ChangeUser() {
             defaultValue={cliente?.email ? cliente?.email.toString() : ""}
             onChange={(value => handleChange('cliente', value, "email"))}
             />
-            <TextField
+            <View 
+              style={{
+                display: "flex", 
+                flexDirection: "row", 
+                alignItems: "center" 
+              }}
+            >
+              <Switch 
+                value={changePassword} 
+                onChange={() => setChangePassword(!changePassword)}
+                thumbColor="#9155fd"
+                trackColor={{
+                  true: "#c8a9fe",
+                  false: "#89868ede"
+                }}
+              />
+              <Text>Mudar a senha?</Text>
+            </View>
+            {changePassword && <TextField
             label="Senha *"
             placeholder="senha"
             secureTextEntry
             autoCorrect={false}
             onChange={(value => handleChange('cliente', value, "password"))}
-            />
+            />}
             <Button onPress={onSubmit} title="Atualizar" />
         </View>}
         {loading && <Loading/>}

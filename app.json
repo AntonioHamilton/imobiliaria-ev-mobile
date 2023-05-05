@@ -26,7 +26,7 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.chatbot1.ev-mobile"
+      "package": "com.chatbot1.evmobile"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

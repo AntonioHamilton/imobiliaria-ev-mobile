@@ -1,14 +1,19 @@
 import { formatCurrency, getSupportedCurrencies } from "react-native-format-currency";
 
 export const formatType = (type: string) => {
-  switch (type) {
-    case "V":
-      return "Venda"
-    case "A":
-      return "Aluguel"
-    default:
-      return "Venda"
+  if (type) {
+    const newType = type.toUpperCase()
+    switch (newType) {
+      case "V":
+        return "Venda"
+      case "A":
+        return "Aluguel"
+      default:
+        return "Venda"
+    }
   }
+
+  return "Venda"
 }
 
 export const formatMoney = (price: number | undefined) => {
