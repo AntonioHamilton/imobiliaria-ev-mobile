@@ -13,7 +13,7 @@ import { RootStackParamList } from "../../types/types";
 import { formatFullDate, formatMoney, formatType } from "../../utils/FormatData";
 
 const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) => {
-  const [contract, setContract] = useState<Contrato>()
+  const [contract, setContract] = useState<Contrato | any>()
   const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -61,12 +61,42 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
     return new Date(signDate) >= new Date(expirationDate)
   }
 
+  function getOnlyDate(date: string) {
+    if(!date) return "";
+    return new Date(date).toISOString().split('T')[0].split('-').reverse().join('/')
+  }
+  
   async function handleGeneratePDFConctract() {
     const html = `
-      <h1>Contrato</h1>
+      <h1 style="font-size: 50px;">Contrato</h1>
+      <br />
+      <h2>Sobre</h2>
+      <span><b>Tipo de Contrato:</b> ${contract?.tipo ? (contract?.tipo.replace(' ', '') == "v" ? "Venda" : "Aluguel") : ""}</span><br />
+      <span><b>Data de Vencimento:</b> ${getOnlyDate(contract?.vencimento) || ""}</span><br />
+      <span><b>Data de Assinatura:</b> ${getOnlyDate(contract?.dataAssinatura) || ""}</span><br />
+      <span><b>Valor:</b> ${contract?.valor || ""}</span><br />
+      <br />
+      <hr />
+      <h2>Cliente</h2>
+      <span><b>Nome:</b> ${contract?.cliente?.nome || ""}</span><br />
+      <span><b>CPF:</b> ${contract?.cliente?.cpf || ""}</span><br />
+      <span><b>RG:</b> ${contract?.cliente?.rg || ""}</span><br />
+      <span><b>Data de Nascimento:</b> ${getOnlyDate(contract?.cliente?.dataNascimento) || ""}</span><br />
+      <span><b>Telefone:</b> ${contract?.cliente?.telefone || ""}</span><br />
+      <span><b>E-mail:</b> ${contract?.cliente?.email || ""}</span><br />
+      <br />
+      <hr />
+      <h2>Endereço</h2>
+      <span><b>Logradouro:</b> ${contract?.imovel?.endereco?.logradouro || ""}</span><br />
+      <span><b>Cidade:</b> ${contract?.imovel?.endereco?.cidade || ""}</span><br />
+      <span><b>Estado:</b> ${contract?.imovel?.endereco?.estado || ""}</span><br />
+      <span><b>CEP:</b> ${contract?.imovel?.endereco?.cep || ""}</span><br />
+      <span><b>País:</b> ${contract?.imovel?.endereco?.pais || ""}</span><br />
+      ${contract?.imovel?.endereco?.complemento ? `<span><b>Complemento:</b> ${contract?.imovel?.endereco?.complemento || ""}</span><br />` : ""}
+      <span><b>Número:</b> ${contract?.imovel?.endereco?.numero || ""}</span>
+      <span style="position: absolute; bottom: 20px; right: 20px;"><b>Funcionário:</b> ${contract?.imovel?.funcionario?.nome || ""}</span>
     `
     const { uri } = await Print.printToFileAsync({ html });
-    console.log('File has been saved to:', uri);
     await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   }
 
