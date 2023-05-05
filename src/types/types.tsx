@@ -33,6 +33,7 @@ export type RootStackParamList = {
   Favorites: NavigatorScreenParams<RootTabParamList> | undefined;
   Interested: NavigatorScreenParams<RootTabParamList> | { id: number } | undefined;
   CreateAnnouncement: NavigatorScreenParams<RootTabParamList> | { imovelId: number } | undefined;
+  ChangeUser: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -51,6 +52,7 @@ export type RootTabParamList = {
   RegisterInterest: undefined;
   Interested: undefined;
   CreateAnnouncement: undefined;
+  ChangeUser: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =

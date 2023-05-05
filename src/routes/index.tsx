@@ -18,6 +18,7 @@ import ContractDetail from '../pages/ContractDetail';
 import ChangeContract from '../pages/ChangeContract';
 import CreateAnnouncement from '../pages/CreateAnnouncement';
 import Favorites from '../pages/Favorites';
+import ChangeUser from '../pages/ChangeUser';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -120,6 +121,13 @@ export default function Navigation() {
          <Stack.Screen
           name="CreateAnnouncement"
           component={CreateAnnouncement}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ChangeUser"
+          component={ChangeUser}
           options={{
             headerShown: false,
           }}

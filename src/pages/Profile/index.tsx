@@ -60,6 +60,9 @@ export default function Profile() {
           <Button onPress={() => nav.navigate('Favorites')} transparent style={{...styles.buttonTransparent, marginBottom: 0, marginTop: 0}}>
               Visualizar Favoritos
           </Button>
+          <Button onPress={() => nav.navigate('ChangeUser')} transparent style={{...styles.buttonTransparent, marginBottom: 0, marginTop: 0}}>
+              Editar
+          </Button>
           <Button onPress={handlerLogout}>
             Sair
           </Button>
