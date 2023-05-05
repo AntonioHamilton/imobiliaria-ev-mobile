@@ -8,6 +8,7 @@ import { RootStackParamList } from '../../types/types';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import { Dimensions } from 'react-native';
+import { formatDate } from '../../utils/FormatData';
 
 const { height } = Dimensions.get('window');
 const newHeight = height - 120
@@ -50,9 +51,9 @@ export default function Profile() {
           <View style={styles.container}>
             <Text style={styles.title}>PERFIL</Text>
             <Text style={styles.name}>{user.data.nome}</Text>
-            <Text style={styles.name}>email: {user.data.email}</Text>
-            <Text style={styles.name}>telefone: {user.data.telefone}</Text>
-            <Text style={styles.name}>dataNascimento: {user.data.dataNascimento}</Text>
+            <Text style={styles.description}>email: {user.data.email}</Text>
+            <Text style={styles.description}>telefone: {user.data.telefone}</Text>
+            <Text style={styles.description}>data de nascimento: {formatDate(user.data.dataNascimento)}</Text>
           </View>
         </Card>
         {!user.isEmployee && <View style={styles.buttonWrapper}>
@@ -101,6 +102,9 @@ export const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     textAlign: "center",
+  },
+  description: {
+    fontSize: 18,
   },
   buttonTransparent: {
     backgroundColor: "transparent",
