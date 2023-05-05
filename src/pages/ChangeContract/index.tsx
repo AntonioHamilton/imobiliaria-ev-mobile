@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../types/types'
 import { Contrato } from '../../types/apiTypes'
-import { formatFullDate } from '../../utils/FormatData'
+import { formatFullDate, formatStringToDate } from '../../utils/FormatData'
 
 const ChangeContract = ({ route: { params: { imovelId, contratoId } } }: any) => {
   const [contractType, setContractType] = useState("v")
@@ -37,7 +37,13 @@ const ChangeContract = ({ route: { params: { imovelId, contratoId } } }: any) =>
 
     try {
       const {data} = await api.get(`/contrato/${contratoId}`)
-      setContract(data);
+      setContract(data)
+      setContrato({
+        vencimento: formatFullDate(data.vencimento),
+        dataAssinatura: formatFullDate(data.dataAssinatura),
+        valor: data.valor,
+        imovelId: Number(imovelId),
+      });
     } catch (e) {
       console.error(e)
     }
@@ -46,8 +52,26 @@ const ChangeContract = ({ route: { params: { imovelId, contratoId } } }: any) =>
   }
 
   const handleSubmit = async () => {
+    const vencimentoFormatted = formatStringToDate(contrato.vencimento as string)
+    const assinaturaFormatted = formatStringToDate(contrato.dataAssinatura as string)
+
+    if (vencimentoFormatted.error) {
+      Alert.alert('Adicione uma data de vencimento válida')
+      return
+    }
+
+    if (assinaturaFormatted.error) {
+      Alert.alert('Adicione uma data de assinatura válida')
+      return
+    }
+
     try {
-      await api.put(`/contrato/${contratoId}`, { contrato: {...contrato, tipo: contractType} })
+      await api.put(`/contrato/${contratoId}`, { contrato: {
+        ...contrato, 
+        vencimento: vencimentoFormatted.date,
+        dataAssinatura: assinaturaFormatted.date,
+        tipo: contractType
+      } })
       nav.navigate('ContractDetail', { imovelId, contratoId })
     } catch (e) {
       Alert.alert('Erro ao alterar o contrato')

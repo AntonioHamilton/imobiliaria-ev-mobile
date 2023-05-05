@@ -56,9 +56,11 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
   }
 
   const verifyContractExpired = (signDate: Date, expirationDate: Date) => {
+    const formattedSignDate = new Date(signDate)
+    const formattedExpirationDate = new Date(expirationDate)
     const today = new Date()
-    if (today <= new Date(expirationDate)) return true;
-    return new Date(signDate) >= new Date(expirationDate)
+    if (today >= formattedExpirationDate) return true;
+    return formattedSignDate >= formattedExpirationDate
   }
 
   function getOnlyDate(date: string) {
@@ -67,35 +69,61 @@ const ContractDetail = ({ route: { params: { contratoId, imovelId } } }: any) =>
   }
   
   async function handleGeneratePDFConctract() {
-    const html = `
-      <h1 style="font-size: 50px;">Contrato</h1>
-      <br />
-      <h2>Sobre</h2>
-      <span><b>Tipo de Contrato:</b> ${contract?.tipo ? (contract?.tipo.replace(' ', '') == "v" ? "Venda" : "Aluguel") : ""}</span><br />
-      <span><b>Data de Vencimento:</b> ${getOnlyDate(contract?.vencimento) || ""}</span><br />
-      <span><b>Data de Assinatura:</b> ${getOnlyDate(contract?.dataAssinatura) || ""}</span><br />
-      <span><b>Valor:</b> ${contract?.valor || ""}</span><br />
-      <br />
-      <hr />
-      <h2>Cliente</h2>
-      <span><b>Nome:</b> ${contract?.cliente?.nome || ""}</span><br />
-      <span><b>CPF:</b> ${contract?.cliente?.cpf || ""}</span><br />
-      <span><b>RG:</b> ${contract?.cliente?.rg || ""}</span><br />
-      <span><b>Data de Nascimento:</b> ${getOnlyDate(contract?.cliente?.dataNascimento) || ""}</span><br />
-      <span><b>Telefone:</b> ${contract?.cliente?.telefone || ""}</span><br />
-      <span><b>E-mail:</b> ${contract?.cliente?.email || ""}</span><br />
-      <br />
-      <hr />
-      <h2>Endereço</h2>
-      <span><b>Logradouro:</b> ${contract?.imovel?.endereco?.logradouro || ""}</span><br />
-      <span><b>Cidade:</b> ${contract?.imovel?.endereco?.cidade || ""}</span><br />
-      <span><b>Estado:</b> ${contract?.imovel?.endereco?.estado || ""}</span><br />
-      <span><b>CEP:</b> ${contract?.imovel?.endereco?.cep || ""}</span><br />
-      <span><b>País:</b> ${contract?.imovel?.endereco?.pais || ""}</span><br />
-      ${contract?.imovel?.endereco?.complemento ? `<span><b>Complemento:</b> ${contract?.imovel?.endereco?.complemento || ""}</span><br />` : ""}
-      <span><b>Número:</b> ${contract?.imovel?.endereco?.numero || ""}</span>
-      <span style="position: absolute; bottom: 20px; right: 20px;"><b>Funcionário:</b> ${contract?.imovel?.funcionario?.nome || ""}</span>
-    `
+    const html = `<body style="margin: 0"><div style="position: relative; font-family: system-ui, sans-serif;">
+    <div style="display: flex; justify-content: center;">
+      <h1 style="background-color: #9155fd; padding: 16; font-size: 24; color: #FFF; width: 400; text-align: center; margin-top: 0">Contrato de locação</h1>
+    </div>
+    <h2 style="text-align: center; margin: 0;">Este Contrato é acordado entre:</h2>
+    <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+      <div>
+        <h3 style="margin-bottom: 16px;">Responsável</h3>
+        <h4 style="margin-top: 0px;">Kit In Net LTDA.</h4>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 16px;">Inquilino</h3>
+        <h4 style="margin-top: 0px;">${contract?.cliente?.nome || ""}</h4>
+      </div>
+    </div>
+    <h2 style="margin-bottom: 8px;">O Proprietário concorda em ${contract?.tipo ? (contract?.tipo.replace(' ', '') == "v") ? "Vender" : "Alugar" : ""} o imóvel localizado em:</h2>
+    <div style="margin-bottom: 16px;">
+      ${contract?.imovel?.endereco?.logradouro || ""}, ${contract?.imovel?.endereco?.numero || ""}, ${contract?.imovel?.endereco?.complemento || ""}. 
+      ${contract?.imovel?.endereco?.cidade || ""} - ${contract?.imovel?.endereco?.estado || ""}.${contract?.imovel?.endereco?.cep || ""}. 
+      ${contract?.imovel?.endereco?.pais || ""}
+    </div>
+    <div>
+      A data de vencimento deste contrato é ${getOnlyDate(contract?.vencimento) || ""}, começando em ${getOnlyDate(contract?.dataAssinatura) || ""} ${contract?.tipo ? (contract?.tipo.replace(' ', '') == "v") ? `com valor de ${formatMoney(contract?.valor)} a ser pago` : `, no valor acordado de ${formatMoney(contract?.valor)} a ser pago mensalmente,` : ""} na execução desse contrato e o valor de
+      ${formatMoney(contract?.imovel?.iptu) || "R$ 0"} como IPTU do imóvel.
+    </div>
+    <h2>Cliente</h2>
+    <span><b>Nome:</b> ${contract?.cliente?.nome || ""}</span><br />
+    <span><b>CPF:</b> ${contract?.cliente?.cpf || ""}</span><br />
+    <span><b>RG:</b> ${contract?.cliente?.rg || ""}</span><br />
+    <span><b>Data de Nascimento:</b> ${getOnlyDate(contract?.cliente?.dataNascimento) || ""}</span><br />
+    <span><b>Telefone:</b> ${contract?.cliente?.telefone || ""}</span><br />
+    <span><b>E-mail:</b> ${contract?.cliente?.email || ""}</span><br />
+    <h2>Termos e condições</h2>
+    <h3 style="margin: 8px 16px;">1. Uso da propriedade</h3>
+    <p style="margin: 8px 32px;">A propriedade alugada deverá ser utilizando somente como residência.</p>
+    <h3 style="margin: 8px 16px;">2. Do pagamento dos Serviços de utilidade pública</h3>
+    <p style="margin: 8px 32px;">Durante o tempo de contrato, o locatário concordo em pagar os serviços de utilidade pública como luz, água, gás e outros serviços utilizados na propriedade.</p>
+    <h3 style="margin: 8px 16px;">3. Reconhecimento</h3>
+    <p style="margin: 8px 32px;"> As partes reconhecem e entendem os termos aqui estabelecidos neste Contrato. Assinado em ${getOnlyDate(contract?.dataAssinatura) || ""}</p>
+   
+    <div style="display: flex; justify-content: space-around; text-align: center; margin-top: 60px;">
+      <div style="padding-bottom: 30px; border-bottom: 2px solid black; width: 200px; align-items: center">
+        <h3>
+          Responsável
+        </h3>
+      </div>
+      <div style="padding-bottom: 30px; border-bottom: 2px solid black; width: 200px; align-items: center">
+        <h3>
+          Inquilino
+        </h3>
+      </div>
+    </div>
+  </div>
+  </body>
+`
     const { uri } = await Print.printToFileAsync({ html });
     await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   }
