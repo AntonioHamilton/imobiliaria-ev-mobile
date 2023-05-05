@@ -78,7 +78,7 @@ export default function ChangeUser() {
         {!loading && 
         <View style={styles.container}>
             <Title>
-            Cadastro
+            Edição
             </Title>
             <Text style={styles.formTitle}>Dados do usuário</Text>
             <TextField
