@@ -2,10 +2,22 @@ import React, { useContext, useEffect, useState } from "react"
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 
+//Icons
 import HomeIcon from '../assets/icons/HomeIcon';
+import SearchIcon from "../assets/icons/SearchIcon";
+import ProfileIcon from "../assets/icons/ProfileIcon";
+import FavoriteIcon from "../assets/icons/FavoriteIcon";
+import UserPlus from "../assets/icons/UserPlusIcon";
+import LoginIcon from "../assets/icons/LoginIcon"
+import BriefcaseIcon from "../assets/icons/FuncionarioIcon";
+import FuncionarioIcon from "../assets/icons/FuncionarioIcon";
+import AnunciosIcon from "../assets/icons/AnunciosIcon";
+import ImoveisIcon from "../assets/icons/ImoveisIcon";
+import LoginFuncionarioIcon from "../assets/icons/LoginFuncionarioIcon";
+
+//Pages
 import Announcements from '../pages/Announcements';
 import Register from '../pages/Register';
-
 import { RootTabParamList } from '../types/types';
 import Properties from '../pages/Properties';
 import Employees from "../pages/Employees";
@@ -62,7 +74,7 @@ export default function BottomTabs() {
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (
-              <HomeIcon size={size} color={color} />
+              <AnunciosIcon size={size} color={color} />
             ),
           }}
         />
@@ -72,7 +84,7 @@ export default function BottomTabs() {
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (
-              <HomeIcon size={size} color={color} />
+              <ImoveisIcon size={size} color={color} />
             ),
           }}
         />}
@@ -82,7 +94,7 @@ export default function BottomTabs() {
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (
-              <HomeIcon size={size} color={color} />
+              <UserPlus size={size} color={color} />
             ),
           }}
         />)}
@@ -92,7 +104,7 @@ export default function BottomTabs() {
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ size, color }) => (
-              <HomeIcon size={size} color={color} />
+              <FuncionarioIcon size={size} color={color} />
             ),
           }}
         />}
@@ -106,7 +118,7 @@ export default function BottomTabs() {
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
-                  <HomeIcon size={size} color={color} />
+                  <ProfileIcon size={size} color={color} />
                 ),
               }}
             />
@@ -117,7 +129,7 @@ export default function BottomTabs() {
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
-                  <HomeIcon size={size} color={color} />
+                  <LoginIcon size={size} color={color} />
                 ),
               }}
             />
@@ -133,7 +145,7 @@ export default function BottomTabs() {
                 options={{
                   unmountOnBlur: true,
                   tabBarIcon: ({ size, color }) => (
-                    <HomeIcon size={size} color={color} />
+                    <ProfileIcon size={size} color={color} />
                   ),
                 }}
               />
@@ -145,7 +157,7 @@ export default function BottomTabs() {
               options={{
                 unmountOnBlur: true,
                 tabBarIcon: ({ size, color }) => (
-                  <HomeIcon size={size} color={color} />
+                  <LoginFuncionarioIcon size={size} color={color} />
                 ),
               }}
             />
